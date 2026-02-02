@@ -1,6 +1,5 @@
-// Strings (10 Questions)
-// [  ] 1. 20. Valid Parentheses
-
+// Strings (10 Questions) ->
+// [  ] 1. 20. Valid Parentheses->
 class Solution {
     public boolean isValid(String s) {
          Stack<Character> stack = new Stack<>();
@@ -23,7 +22,7 @@ class Solution {
     }
 }
 
-// [  ] 2. 125. Valid Palindrome
+// [  ] 2. 125. Valid Palindrome ->
 class Solution {
     public boolean isPalindrome(String s) {
         int left=0;
@@ -48,7 +47,7 @@ class Solution {
     }
 }
 
-// [  ] 3. 242. Valid Anagram -brute and optimized
+// [  ] 3. 242. Valid Anagram -brute and optimized ->
 int[] freq = new int[26];
         for (int i = 0; i < s.length(); i++) {
             freq[s.charAt(i) - 'a']++;
@@ -78,7 +77,7 @@ class Solution {
     }
 }
 
-// [  ] 4. 49. Group Anagrams
+// [  ] 4. 49. Group Anagrams ->
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
         Map<String, List<String>> map=new HashMap<>();
@@ -92,9 +91,126 @@ class Solution {
         return new ArrayList<>(map.values()); //given-any order
     }
 }
-// [  ] 5. 5. Longest Palindromic Substring
-// [  ]  6. 76. Minimum Window Substring
-// [  ]  7. 28. Find the Index of the First Occurrence in a String
-// [  ] 8. 443. String Compression
-// [  ]  9. 14. Longest Common Prefix
-// [  ]  10.459. Repeated Substring Pattern
+
+// [  ] 5. 5. Longest Palindromic Substring ->
+class Solution {
+    public String longestPalindrome(String s) {
+        String result="";
+        for(int i=0;i<s.length();i++){
+            for(int j=i;j<s.length();j++){
+                String sub=s.substring(i,j+1); 
+                if(isPalindrome(sub) && sub.length()>result.length()){
+                    result=sub;
+                }
+            }
+        }
+    return result;
+    }
+    private boolean isPalindrome(String sub){
+        int left=0;
+        int right=sub.length()-1;
+        while(left<right){
+            if(sub.charAt(left)!=sub.charAt(right)) return false;
+            left++;
+            right--;
+        }
+        return true;
+    }
+}
+
+
+
+// [  ]  6. 76. Minimum Window Substring ->(HARD)
+
+class Solution { //https://www.youtube.com/watch?v=zbApqzJpQR8 - refer for logic
+    public String minWindow(String s, String t) {
+        if(s.length()<t.length()) return "";
+        int freq[]=new int[128];
+        for(char ch:t.toCharArray()){
+            freq[ch]++;
+        }
+        int left=0,right=0;
+        int needed=t.length();
+        int minstart=0;
+        int minlength=Integer.MAX_VALUE;
+        while(right<s.length()){
+            char r=s.charAt(right);
+            if(freq[r]>0) needed--;
+            freq[r]--;
+            right++;
+            while(needed==0){
+                if(right-left<minlength){
+                    minlength=right-left;
+                    minstart=left;
+                }
+            
+                char l=s.charAt(left);
+                freq[l]++;
+                if(freq[l]>) needed++;
+                left++;
+            }
+        }
+        if(minlen==Integer.MAX_VALUE) return "";
+        return substring(minstart,minstart+minlength);
+        }
+}
+
+// [  ]  7. 28. Find the Index of the First Occurrence in a String ->
+class Solution {
+    public int strStr(String haystack, String needle) {
+     for(int i=0,j=needle.length();j<=haystack.length();i++,j++){
+        if(haystack.substring(i,j).equals(needle)){
+            return i;
+        }
+     } return -1;
+    }
+}
+
+// [  ] 8. 443. String Compression ->
+class Solution {
+    public int compress(char[] chars) {
+        int write=0;
+        int read=0;
+        while(read<chars.length){
+            char current=chars[read]; //reads current element
+            int count=0;
+            while(read<chars.length && chars[read]== current){ //counts dupilcates
+                read++;
+                count++;
+            }
+            chars[write++]=current; //writes the element at the index with 'write'
+            if(count>1){                                                    //if count is 12 ->  it becomes['1','2']
+                for(char c:String.valueOf(count).toCharArray()){ 
+                    chars[write++]=c; //writes the count of duplicateS
+                }
+            }
+        }
+        return write;
+    }
+}
+
+// [  ]  9. 14. Longest Common Prefix ->
+class Solution {
+    public String longestCommonPrefix(String[] strs) { 
+     if(strs==null || strs.length==0) return ""; //edge case
+     String first=strs[0]; //taking first string as reference
+     for(int i=0;i<first.length();i++){ 
+        char ch=first.charAt(i); //current character from first string
+        for(int j=1;j<strs.length;j++){   
+            if (i >= strs[j].length() || strs[j].charAt(i) != ch) { //compare with other strings
+                return first.substring(0,i); //if mismatch found, return prefix up to i
+            }
+        }
+     }  return first; // if first string itself is the common prefix    
+    }
+}
+
+
+// [  ]  10.459. Repeated Substring Pattern ->
+class Solution {
+    public boolean repeatedSubstringPattern(String s) {
+        String doubled=s+s;
+        String trim= doubled.substring(1,doubled.length()-1); //remove first and last characters of doubled
+        return trim.contains(s);
+    }
+}

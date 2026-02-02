@@ -58,7 +58,7 @@ class Solution {
         return false;
     }
 }
-// 5.238. Product of Array Except Self
+// 5.238. Product of Array Except Self -two pinters
 class Solution {
     public int[] productExceptSelf(int[] nums) {
         int[] left=new int[nums.length];
@@ -129,7 +129,7 @@ class Solution {
         if(intervals.length<=1) return intervals; //if only one interval present    
 
         List<int[]> merged = new ArrayList<>();
-        merged.add(intervals[0]);
+        merged.add(intervals[0]); //add first interval to merged list
 
         for(int i=1;i<intervals.length;i++){
              int[] last=merged.get(merged.size()-1); //most recent added interval
@@ -184,7 +184,7 @@ class Solution {
         // reverse each row
         for(int i=0;i<n;i++){
             for(int j=0;j<n/2;j++){
-                int temp=matrix[i][j];
+                int temp=matrix[i][j];   
                 matrix[i][j]=matrix[i][n-1-j];
                 matrix[i][n-1-j]=temp;
             }
