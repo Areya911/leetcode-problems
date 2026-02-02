@@ -146,12 +146,12 @@ class Solution { //https://www.youtube.com/watch?v=zbApqzJpQR8 - refer for logic
             
                 char l=s.charAt(left);
                 freq[l]++;
-                if(freq[l]>) needed++;
+                if(freq[l]>0) needed++;
                 left++;
             }
         }
-        if(minlen==Integer.MAX_VALUE) return "";
-        return substring(minstart,minstart+minlength);
+        if(minlength==Integer.MAX_VALUE) return "";
+        return s.substring(minstart,minstart+minlength);
         }
 }
 
