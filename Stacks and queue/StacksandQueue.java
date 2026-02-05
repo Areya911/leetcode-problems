@@ -55,18 +55,47 @@ class MyStack {
     }
 }
 
-/**
- * Your MyStack object will be instantiated and called as such:
- * MyStack obj = new MyStack();
- * obj.push(x);
- * int param_2 = obj.pop();
- * int param_3 = obj.top();
- * boolean param_4 = obj.empty();
- */
 
 // 3.739. Daily Temperatures
-
+class Solution {
+    public int[] dailyTemperatures(int[] temperatures) {
+        int n=temperatures.length;
+        int result[]=new int[n];
+        Stack<Integer> stk=new Stack<>();
+        for(int i=n-1;i>=0;i--){
+            while(!stk.isEmpty() && temperatures[i]>=temperatures[stk.peek()]){ 
+                stk.pop(); // pop elements from stack until we find a greater element than current element
+            }
+            if(!stk.isEmpty()){
+                result[i]=stk.peek()-i;  // if stack is not empty then we can calculate the number of days to wait for a warmer temperature by subtracting the current index from the index of the next greater element on top of the stack
+            }
+            stk.push(i);
+        }
+        return result;
+    }
+}
 // 4.496. Next Greater Element I
+
+class Solution {
+    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+        int result[]=new int[nums1.length];  // result array to store the next greater elements for nums1
+        Stack<Integer>  stk =new Stack<>(); 
+        HashMap<Integer,Integer> map=new HashMap<>();
+        for(int num: nums2){
+            while(!stk.isEmpty() && num>stk.peek()){  // compares the current number with the top element of the stack
+                map.put(stk.pop(),num); // if current number is greater than the top element of the stack->found greater element->pop top element and map it to current number
+            }
+            stk.push(num); // push current number onto the stack
+        }
+        while(!stk.isEmpty()){
+            map.put(stk.pop(),-1); // for elements that do not have a next greater element in nums2, map them to -1
+        }
+        for(int j=0;j<nums1.length;j++){
+            result[j]=map.get(nums1[j]); // retrieve the next greater element for each element in nums1 from the map and store it in the result array
+        }    
+        return result;
+    }
+}
 
 // 5.20. Valid Parentheses
 class Solution {
@@ -89,3 +118,31 @@ class Solution {
 }
 }
 // 6.155. Min Stack
+class MinStack {
+
+    Stack<Integer> stack= new Stack<>();
+ 
+    int min=Integer.MAX_VALUE;
+
+    public void push(int val) {
+       if(val <= min){          
+            stack.push(min);
+            min=val;
+        }
+        stack.push(val);
+    }
+    
+    public void pop() {
+        if(stack.pop()==min){
+            min=stack.pop();
+        }
+    }
+    
+    public int top() {
+        return stack.peek();
+    }
+    
+    public int getMin() {
+        return min;
+    }
+}
