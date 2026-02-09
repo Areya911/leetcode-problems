@@ -145,4 +145,92 @@ class MinStack {
     public int getMin() {
         return min;
     }
+    // Next greater  Elemnt II
+    import java.util.*;
+
+class Solution {
+    public int[] nextGreaterElements(int[] nums) {
+
+        int n = nums.length;
+        int[] result = new int[n];
+        Arrays.fill(result, -1);
+
+        Stack<Integer> stack = new Stack<>();
+
+        for (int i = 0; i < 2 * n; i++) {
+
+            int num = nums[i % n];
+
+            while (!stack.isEmpty() && nums[stack.peek()] < num) {
+                result[stack.pop()] = num;
+            }
+
+            if (i < n) {
+                stack.push(i);
+            }
+        }
+
+        return result;
+    }
+}
+
+    //622. Designing a  Circular Queue:
+   // the question asked to design a circular queue with the following operations: so we canot implement prebuilt methods
+   
+    class MyCircularQueue {
+    int[] que; //queue must be an array to implement circular queue
+    int front;
+    int rear;
+    int size;
+    int capacity;
+
+    public MyCircularQueue(int k) {
+        que = new int[k];
+        capacity=k;
+        front =0;
+        rear=-1;
+        size=0;
+    }
+    
+    public boolean enQueue(int value) {
+        if(isFull()) return false;
+        //when rear=-1 and we add first element rear will become 0 and it will point to the first element of the queue
+        // when rear reaches the end of the queue and we add another element rear will become 0 and it will point to the first element of the queue
+        rear=(rear+1)%capacity;
+        que[rear]=value;
+        size++; // increment size of the queue
+        return true;
+    }
+    
+    public boolean deQueue() {
+        if(isEmpty()) return false;
+
+        front=(front+1)%capacity;
+        size--; // decrement size of the queue as we dequeue an element from the front of the queue
+        return true;
+
+    }
+    
+    public int Front() {
+        if(isEmpty()) return -1;
+        return que[front];
+    }
+    
+    public int Rear() {
+        if(isEmpty()) return -1;
+        return que[rear];
+    }
+    
+    public boolean isEmpty() {
+        return size==0; 
+    }
+    
+    public boolean isFull() {
+        return size==capacity;
+        
+    }
+}
+
+
+
 }
