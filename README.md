@@ -54,7 +54,7 @@ LeetCode-75/
 1. Clone the repository
 
 ```
-git clone https://github.com/your-username/leetcode-75.git
+git clone https://github.com/your-username/leetcode-problems.git
 ```
 
 2. Open in any IDE (VS Code / IntelliJ)
@@ -66,9 +66,3 @@ git clone https://github.com/your-username/leetcode-75.git
 * Solve LeetCode 75 completely
 * Maintain consistency
 * Revise important patterns regularly
-
-##  Author
-
-Areya K S
-Computer Science Student
-Focused on mastering DSA for technical interviews.
