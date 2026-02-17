@@ -1,14 +1,14 @@
-//  Arrays (10 Questions)
+// Arrays (10 Questions)
 // 1.1. Two Sum
-//brute logic
+// brute logic
 // for i:
 //   for j:
 //     if nums[i] + nums[j] == target
 class Solution {
     public int[] twoSum(int[] nums, int target) {
-        HashMap<Integer,Integer> map= new HashMap<>(); //map{element,index}
+        HashMap<Integer,Integer> map= new HashMap<>();  //map{element,index}
         for(int i=0;i<nums.length;i++){
-            int complement= target-nums[i];
+            int complement = target-nums[i];
             if(map.containsKey(complement)){
                 return new int[]{map.get(complement),i};
             }
@@ -19,15 +19,14 @@ class Solution {
 }
 
 // 2.121. Best Time to Buy and Sell Stock
-
 class Solution {
     public int maxProfit(int[] prices) {
         int minPrice=Integer.MAX_VALUE;
         int maxProfit=0;
-        for(int nums:prices){
-            if(nums<minPrice) minPrice=nums; //update minPrice
+        for(int nums : prices){
+            if(nums < minPrice) minPrice=nums; //update minPrice
             else{
-                int profit= nums-minPrice; //checks profit
+                int profit = nums - minPrice; //checks profit
                 maxProfit=Math.max(profit,maxProfit); //if profit is more than maxProfit, update maxProfit
             }
         }
@@ -38,7 +37,7 @@ class Solution {
 // 3.88. Merge Sorted Array
 class Solution {
     public void merge(int[] nums1, int m, int[] nums2, int n) {
-        for (int j = 0, i = m; j < n; j++) {
+        for (int j = 0, i = m; j < n; j++){
             nums1[i] = nums2[j];
             i++;
         }
@@ -47,7 +46,6 @@ class Solution {
 }
 
 // 4.217. Contains Duplicate
-
 class Solution {
     public boolean containsDuplicate(int[] nums) {
         HashSet<Integer> set= new HashSet<>();
@@ -58,6 +56,7 @@ class Solution {
         return false;
     }
 }
+
 // 5.238. Product of Array Except Self -two pinters
 class Solution {
     public int[] productExceptSelf(int[] nums) {
@@ -80,6 +79,7 @@ class Solution {
         return answer;
     }
 }
+
 // 6.53. Maximum Subarray -Kandanes Algorithm
 class Solution{
     public int [] maxSubArray(int[] nums){
@@ -87,8 +87,8 @@ class Solution{
         int sum=0;
         for(int i=0;i<nums.length;i++){
             sum+=nums[i];
-            max=Math.max(max,sum);
-            if(sum<0) sum=0; // edge case handing
+            max=Math.max(max,sum); 
+            if(sum<0) sum=0; //edge case handing
         }
         return max;
     }
@@ -99,6 +99,7 @@ class Solution{
     List<List<Integer>> result=new ArrayList<>();
     int n=nums.length;
     Arrays.sort(nums);
+
     //1st element taken from this for loop
     for(int i=0;i<n-2;i++){
         if( i>0 && nums[i]==nums[i-1]) continue; //skip duplicates
@@ -110,9 +111,10 @@ class Solution{
 
             if(sum==0){
                 result.add(Arrays.asList(nums[i],nums[left],nums[right]));
+
                 //skip duplicates for left and right
                 while(left<right && nums[left]==nums[left+1]) left++;
-                while(left<right && nums[right]==nums[right-1])right++;
+                while(left<right && nums[right]==nums[right-1])right--;
 
                 left++;
                 right--;
@@ -121,6 +123,8 @@ class Solution{
             else right--; //if sum is greater than 0, move right pointer backward   
         }
     }
+}
+
 // 8.56. Merge Intervals
 class Solution {
     public int[][] merge(int[][] intervals) {
@@ -146,7 +150,6 @@ class Solution {
 }
 
 // 9.11. Container With Most Water -use 2 pointer
-
 class Solution {
     public int maxArea(int[] height) {
         int left=0;
