@@ -195,3 +195,135 @@ class Solution {
     }
 }
 
+//1752. Check if Array Is Sorted and Rotated
+class Solution {
+    public boolean check(int[] nums) {
+        int count=0;
+        int n=nums.length;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]>nums[(i+1) %n ) count++;
+        }
+        return count<=1; //if count is more than 1, it means array is not sorted and rotated
+        
+    }
+}
+
+
+//26. Remove Duplicates from Sorted Array
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        if(nums.length==0) return 0; //edge case
+        int i=0; //pointer for unique elements
+        for(int j=1;j<nums.length;j++){
+            if(nums[j]!=nums[i]){ //if current element is not equal to last unique element
+                i++; //move pointer for unique elements forward
+                nums[i]=nums[j]; //update unique element at pointer i
+            }
+        }
+        return i+1; //length of array with unique elements is pointer + 1 (since index starts from 0)
+    }
+}
+
+// (or)
+// set automaticatically removes duplicates and maintains insertion order,
+// so we can use a LinkedHashSet to store unique elements and then copy them back to the original array. The size of the set will give us the number of unique elements.
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        Set<Integer> set = new LinkedHashSet<>();
+
+//dont use hashset because it does not maintain insertion order, so the order of elements in the original array will be lost. LinkedHashSet maintains the order of insertion, so we can preserve the original order of unique elements in the array.
+        for (int a : nums) {
+            set.add(a);
+        }
+        int i = 0;
+        for (int a : set) {
+            nums[i] = a;
+            i++;
+        }
+        return set.size();
+    }
+}
+
+//283. Move Zeroes
+class Solution {
+    public void moveZeroes(int[] nums) {
+       int i=0;
+        for(int a:nums){
+            if(a!=0) nums[i++]=a;
+        }
+
+        while(i<nums.length){
+            nums[i]=0;
+            i++;
+        }
+    }
+}
+
+//136. Single number
+class Solution {
+    public int singleNumber(int[] nums) {
+        int idx=0;
+        for(int i=0;i<nums.length;i++){
+            idx=idx^nums[i]; 
+            // ^ is the XOR operator, it will cancel out duplicate numbers and leave us with the single number that appears only once in the array.
+        }
+        return idx;
+    }
+}
+
+// Sort Colors - follows dutch national flag algorithm, which uses three pointers to sort the array in a single pass. The low pointer tracks the position of the last 0, the mid pointer traverses the array, and the high pointer tracks the position of the first 2. Depending on the value at mid, we swap elements and move the pointers accordingly.
+class Solution {
+    public void sortColors(int[] nums) {
+        int low=0,mid=0,high=nums.length-1;
+        while(mid<=high){
+
+            if(nums[mid]==0){ //swap(low,mid) and move both pointers forward
+                int temp=nums[low];
+                nums[low]=nums[mid];
+                nums[mid]=temp;
+                low++;
+                mid++;
+            }
+
+            else if(nums[mid]==1) mid++; //if mid is 1, just move mid pointer forward
+            
+            else{
+                int temp=nums[high]; //swap(mid,high) and move high pointer backward
+                nums[high]=nums[mid];
+                nums[mid]=temp;
+                high--;
+            }
+        }
+    }
+}
+//54. Spiral matrix - important!
+class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> ans=new ArrayList<>();
+        int left=0,top =0;
+        int right=matrix[0].length-1;
+        int bottom=matrix.length-1;
+
+        while(top<=bottom && left<=right){
+            // Left->Right
+            for(int i=left;i<=right;i++){
+                ans.add(matrix[top][i]);
+            }
+            top++;
+            for(int i=top;i<=bottom;i++){
+                ans.add(matrix[i][right]);
+            }right--;
+            if(top<=bottom){
+                for(int i=right;i>=left;i--){
+                    ans.add(matrix[bottom][i]);
+                }bottom--;
+            }
+            if(left<=right){
+                for(int i=bottom;i>=top;i--){
+                    ans.add(matrix[i][left]);
+                }left++;
+            }
+        }
+        return ans;
+    }
+}
