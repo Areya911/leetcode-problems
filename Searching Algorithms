@@ -1,4 +1,4 @@
-INSERTION SORT:
+## INSERTION SORT:
 Idea: divides array into sorted and unsorted parts and inserts elements from unsorted to sorted part at correct position
 
 void insertionSort(int arr[]){
@@ -13,7 +13,7 @@ void insertionSort(int arr[]){
     }
 }
 
-BUBBLE SORT:
+## BUBBLE SORT:
 Idea: bubblesort compares adjacent elements and swaps them if they are in the wrong order
 
 void bubblesort(int arr[])_
@@ -28,7 +28,7 @@ for(int i=0;i<n-1;i++){
     }
 }
 
-SELECTION SORT:
+## SELECTION SORT:
 Idea: finds min and swaps with current index
 
 void selectionSort(int arr[]){
@@ -45,7 +45,7 @@ void selectionSort(int arr[]){
     }
 }
 
-MERGE SORT:
+## MERGE SORT:
 Idea: divides array into halves and merges them in sorted order
 
 void MergeSort(int arr[], int left,int right){
@@ -73,7 +73,7 @@ private static void merge(int[] leftArr, int[] rightArr, int[] arr, int left, in
         arr[k++]= rightArr[j++];
     }
 
-    QUICK SORT:
+## QUICK SORT:
 Idea: selects a pivot and partitions the array around the pivot
 
 void quickSort(int arr[], int low, int high){
