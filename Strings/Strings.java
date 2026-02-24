@@ -214,3 +214,67 @@ class Solution {
         return trim.contains(s);
     }
 }
+
+//Reverse String-  in place reversal using 2 pointers
+class Solution {
+    public void reverseString(char[] s) {
+        int left=0;
+        int right=s.length-1;
+        while(left<right){
+            char temp=s[left];
+            s[left]=s[right];
+            s[right]=temp;
+            left++;
+            right--;
+        }
+    }
+}
+
+//reverse string II
+class Solution {
+    public void reverse(char[] arr, int left,int right){
+        while(left<=right){
+            char temp=arr[left];
+            arr[left]=arr[right];
+            arr[right]=temp;
+            left++;
+            right--;
+        }
+
+    }
+    public String reverseStr(String s, int k) {
+        char[] str=s.toCharArray();
+        int n=s.length();
+        for(int i=0;i<n;i+=2*k){
+            int j = Math.min(i+k-1,n-1);
+            reverse(str,i,j);
+        }
+        return new String(str);
+        //.toString() returns hashcode
+    }
+}
+
+//Longest palindromic substring - 2pointers approach
+class Solution {
+    private boolean isPalindrome(String s,int left,int right){
+        int left=0;
+        int right=s.length()-1;
+            while(left<right)
+             if( s.charAt(left)!=s.charAt(right)) return false;
+                left++;
+                right--;
+            }
+            
+        }
+        public String longestPalindrome(String s) {
+            String result="";
+                for(int i=0;i<s.length();i++){
+                    for(int j=i;j<s.length();j++){
+                        String sub=s.substring(i,j+1);
+                        if(isPalindrome(sub) && sub.length()>result.length()){
+                            result=sub;
+                        }
+                    }
+                }
+            return result;
+        }
