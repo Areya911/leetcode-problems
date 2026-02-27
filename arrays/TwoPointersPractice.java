@@ -35,9 +35,7 @@
 // 🔴 Hard
 // Trapping Rain Water
 
-// Valid Palindrome III
-
+// Valid Palindrome II
 // Substring with Concatenation of All Words
-
 // Minimum Window Substring -->
 
