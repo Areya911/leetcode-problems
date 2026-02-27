@@ -1,0 +1,41 @@
+// Subarray Sum Equals K
+class Solution {
+    public int subarraySum(int[] nums, int k) {
+
+        HashMap<Integer, Integer> hm = new HashMap<>();
+        hm.put(0, 1); // IMPORTANT: handles subarrays starting at index 0
+
+        int prefixSum = 0;
+        int ctOfSubarrays = 0;
+
+        for (int i = 0; i < nums.length; i++) {
+
+            prefixSum += nums[i];
+            int remove = prefixSum - k;
+
+            if (hm.containsKey(remove)) {
+                ctOfSubarrays += hm.get(remove);
+            }
+
+            hm.put(prefixSum, hm.getOrDefault(prefixSum, 0) + 1);
+        }
+
+        return ctOfSubarrays;
+    }
+}
+
+//Maximum subarray sum (Kadane's Algorithm)
+class Solution {            
+    public int maxSubArray(int[] nums) {
+        int maxSum=Integer.MIN_VALUE;
+        int currentSum=0;
+        for(int i=0;i<nums.length;i++){
+            currentSum+=nums[i];
+            maxSum=Math.max(maxSum,currentSum);
+            if(currentSum<0){
+                currentSum=0;
+            }
+        }
+        return maxSum;
+    }
+}
