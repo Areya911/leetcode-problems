@@ -1,0 +1,98 @@
+
+567. Permutation in String
+class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+        if(s1.length()>s2.length()) return false;
+        int [] freq=new int[26];
+
+        // count frequency of s1
+        for(char ch: s1.toCharArray()) freq[ch-'a']++;
+        int left=0;
+        for(int right=0;right<s2.length();right++){
+            freq[s2.charAt(right)-'a']--;
+           
+            //when frequency becomes -ve , shrink window
+            while(freq[s2.charAt(right)-'a']<0){
+                freq[s2.charAt(left)-'a']++;
+                left++;
+            }
+            if(right-left+1==s1.length()) return true;
+        }
+         return false;
+    }
+
+}
+
+482. License Key Formatting
+class Solution {
+    public String licenseKeyFormatting(String s, int k) {
+        StringBuilder sb=new StringBuilder();
+        for(int i=s.length()-1;i>=0;i--){
+            if(s.charAt(i)!='-'){
+                sb.append(sb.length() %(k+1)==k ? '-' : "").append(s.charAt(i));
+            }
+        }
+        return sb.reverse().toString().toUpperCase();
+    }
+}
+
+1047. Remove All Adjacent Duplicates In String
+class Solution {
+    public String removeDuplicates(String s) {
+        StringBuilder str=new StringBuilder();
+        for(char ch:s.toCharArray()){
+            int len=str.length();
+            if(len>0 && str.charAt(len-1)==ch) str.deleteCharAt(len-1);
+            else  str.append(ch);
+        }
+       return str.toString();
+    }
+}
+
+844. Backspace String Compare
+class Solution {
+    public boolean backspaceCompare(String s, String t) {
+        return build(s).equals(build(t));
+    }
+    private String build(String str){
+        StringBuilder sb=new StringBuilder();
+        for(char ch:str.toCharArray()){
+            int len=sb.length();
+            if(ch=='#' ){
+                if(len>0)sb.deleteCharAt(len-1);
+            }
+            else sb.append(ch);
+                
+        }
+        return sb.toString();
+    }
+}
+
+(or)
+
+class Solution {
+    public boolean backspaceCompare(String s, String t) {
+        Stack<Character> st1=new Stack<>();
+        for(int i=0;i<s.length();i++){
+            char ch=s.charAt(i);
+            if(ch!='#'){
+            st1.push(ch);
+            }
+            if(!st1.isEmpty() && ch=='#'){
+                st1.pop();
+            }
+        }
+        Stack<Character> st2=new Stack<>();
+        
+        for(int i=0;i<t.length();i++){
+            char ch1=t.charAt(i);
+            if(ch1!='#'){
+            st2.push(ch1);
+            }
+            if(!st2.isEmpty() && ch1=='#'){
+                st2.pop();
+            }
+        }
+        return st1.equals(st2);
+    }
+}
